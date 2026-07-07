@@ -1,0 +1,139 @@
+{
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "laboratories": "Laboratories",
+    "equipment": "Equipment Catalog",
+    "services": "Services",
+    "training": "Training",
+    "news": "News & Events",
+    "contact": "Contact",
+    "requestService": "Request Service"
+  },
+  "Footer": {
+    "tagline": "Center of Engineering for Sustainable Development",
+    "faculty": "Faculty of Engineering, National University of Laos",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "rightsReserved": "All rights reserved."
+  },
+  "Home": {
+    "heroTitle": "Center of Engineering for Sustainable Development",
+    "heroSubtitle": "A national hub for engineering innovation, testing, training, and academic-industry collaboration under the Faculty of Engineering, National University of Laos.",
+    "cta": "Request a Service",
+    "learnMore": "Learn More",
+    "labsTitle": "Our Laboratories",
+    "labsSubtitle": "Eleven specialized facilities equipped with modern instruments.",
+    "servicesTitle": "Our Services",
+    "servicesSubtitle": "Testing, inspection, consulting, training, and joint research services for industry and academia.",
+    "newsTitle": "Latest News & Events",
+    "viewAll": "View All"
+  },
+  "About": {
+    "title": "About CESD",
+    "backgroundTitle": "Background",
+    "visionTitle": "Vision",
+    "missionTitle": "Mission",
+    "objectivesTitle": "Objectives",
+    "orgTitle": "Organization Structure",
+    "galleryTitle": "Our Campus & Facilities"
+  },
+  "Laboratories": {
+    "title": "Laboratories",
+    "subtitle": "CESD operates eleven specialized facilities for testing, research, and training.",
+    "location": "Location",
+    "responsibleStaff": "Responsible Staff",
+    "relatedEquipment": "Related Equipment",
+    "noEquipment": "No equipment listed yet for this laboratory.",
+    "backToList": "Back to Laboratories"
+  },
+  "Equipment": {
+    "title": "Equipment Catalog",
+    "subtitle": "Search and filter more than 300 pieces of laboratory equipment.",
+    "searchPlaceholder": "Search equipment by name or code...",
+    "filterLaboratory": "Laboratory",
+    "filterCategory": "Category",
+    "filterAvailability": "Availability",
+    "allLaboratories": "All Laboratories",
+    "allCategories": "All Categories",
+    "allAvailability": "Any Availability",
+    "available": "Available",
+    "inUse": "In Use",
+    "maintenance": "Under Maintenance",
+    "retired": "Retired",
+    "code": "Code",
+    "brand": "Brand / Model",
+    "specification": "Specification",
+    "capability": "Testing Capability",
+    "noResults": "No equipment matched your search.",
+    "backToList": "Back to Equipment Catalog",
+    "requestThisEquipment": "Request Service with this Equipment",
+    "downloadDatasheet": "Download Datasheet",
+    "accessories": "Included Accessories"
+  },
+  "Services": {
+    "title": "Services",
+    "subtitle": "Testing, inspection, consulting, and collaboration services for industry, students, and researchers.",
+    "requestThisService": "Request this Service",
+    "backToList": "Back to Services"
+  },
+  "Training": {
+    "title": "Training & Workshops",
+    "subtitle": "Skills development courses and customized corporate training.",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "capacity": "Capacity",
+    "fee": "Fee",
+    "free": "Free",
+    "register": "Register",
+    "backToList": "Back to Training"
+  },
+  "News": {
+    "title": "News & Events",
+    "subtitle": "Updates, announcements, and events from CESD.",
+    "backToList": "Back to News",
+    "publishedOn": "Published on"
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "subtitle": "Reach out to CESD for inquiries about services, training, or partnerships.",
+    "addressTitle": "Address",
+    "address": "Faculty of Engineering, National University of Laos, Dongdok Campus, Vientiane, Laos",
+    "phoneTitle": "Phone",
+    "emailTitle": "Email",
+    "formTitle": "Send us a message",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "successMessage": "Thank you. Your message has been sent.",
+    "errorMessage": "Something went wrong. Please try again."
+  },
+  "ServiceRequest": {
+    "title": "Request a Service",
+    "subtitle": "Submit a request for testing, analysis, inspection, consulting, or training. Our team will review and contact you.",
+    "service": "Service",
+    "selectService": "Select a service",
+    "laboratory": "Preferred Laboratory (optional)",
+    "selectLaboratory": "Select a laboratory",
+    "requestTitle": "Request Title",
+    "description": "Description",
+    "sampleInformation": "Sample Information (if applicable)",
+    "requiredDate": "Required Date",
+    "contactName": "Contact Name",
+    "contactEmail": "Contact Email",
+    "contactPhone": "Contact Phone",
+    "organization": "Organization / Company (optional)",
+    "submit": "Submit Request",
+    "successTitle": "Request Submitted",
+    "successMessage": "Your request has been received. Reference number: {requestNo}. Our team will contact you soon.",
+    "errorMessage": "Could not submit your request. Please check the form and try again."
+  },
+  "Common": {
+    "loading": "Loading...",
+    "readMore": "Read More",
+    "required": "Required"
+  }
+}

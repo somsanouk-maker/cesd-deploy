@@ -1,0 +1,6 @@
+*
+!.gitignore
+!laboratories/
+!laboratories/**
+!equipment/
+!equipment/**
