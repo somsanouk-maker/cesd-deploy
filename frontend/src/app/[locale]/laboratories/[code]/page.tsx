@@ -5,6 +5,7 @@ import { api, ApiError } from "@/lib/api";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, Badge } from "@/components/ui/card";
 import { EquipmentCategoryIcon } from "@/components/icons";
+import { BookingForm } from "@/components/forms/booking-form";
 
 export default async function LaboratoryDetailPage({
   params,
@@ -119,6 +120,10 @@ export default async function LaboratoryDetailPage({
                 </div>
               </dl>
             </Card>
+
+            <div className="mt-6">
+              <BookingForm bookableType="laboratory" bookableId={lab.id} />
+            </div>
           </div>
         </div>
       </div>

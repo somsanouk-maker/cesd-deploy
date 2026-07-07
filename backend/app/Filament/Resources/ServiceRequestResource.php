@@ -66,6 +66,24 @@ class ServiceRequestResource extends Resource
                         ->searchable(),
                     Textarea::make('staff_notes')->rows(3)->columnSpanFull(),
                 ]),
+            Section::make('Quotation')
+                ->description('Use the "Send Quotation" button above to set or update this.')
+                ->columns(3)
+                ->schema([
+                    Placeholder::make('quotation_status_display')
+                        ->label('Status')
+                        ->content(fn (?ServiceRequest $record): string => $record ? ucfirst($record->quotation_status) : '—'),
+                    Placeholder::make('quoted_amount_display')
+                        ->label('Amount')
+                        ->content(fn (?ServiceRequest $record): string => $record?->quoted_amount ? 'LAK '.number_format((float) $record->quoted_amount, 2) : '—'),
+                    Placeholder::make('quoted_by_display')
+                        ->label('Quoted By')
+                        ->content(fn (?ServiceRequest $record): string => $record?->quotedBy?->name ?? '—'),
+                    Placeholder::make('quotation_notes_display')
+                        ->label('Notes')
+                        ->content(fn (?ServiceRequest $record): string => $record?->quotation_notes ?? '—')
+                        ->columnSpanFull(),
+                ]),
         ]);
     }
 
@@ -86,6 +104,14 @@ class ServiceRequestResource extends Resource
                         'rejected' => 'danger',
                         default => 'gray',
                     }),
+                TextColumn::make('quotation_status')->label('Quotation')->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'not_quoted' => 'gray',
+                        'quoted' => 'warning',
+                        'accepted' => 'success',
+                        'declined' => 'danger',
+                        default => 'gray',
+                    }),
                 TextColumn::make('assignedStaff.name')->label('Assigned To'),
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
@@ -98,6 +124,14 @@ class ServiceRequestResource extends Resource
                         'in_progress' => 'In Progress',
                         'completed' => 'Completed',
                         'rejected' => 'Rejected',
+                    ]),
+                SelectFilter::make('quotation_status')
+                    ->label('Quotation')
+                    ->options([
+                        'not_quoted' => 'Not Quoted',
+                        'quoted' => 'Quoted',
+                        'accepted' => 'Accepted',
+                        'declined' => 'Declined',
                     ]),
             ])
             ->defaultSort('created_at', 'desc');

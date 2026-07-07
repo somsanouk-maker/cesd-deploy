@@ -24,7 +24,8 @@ export function ServiceRequestForm({
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("submitting");
-    const form = new FormData(e.currentTarget);
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
     const laboratoryId = String(form.get("laboratory_id") ?? "");
 
     try {
@@ -42,7 +43,7 @@ export function ServiceRequestForm({
       });
       setRequestNo(res.data.request_no);
       setStatus("success");
-      e.currentTarget.reset();
+      formEl.reset();
     } catch {
       setStatus("error");
     }

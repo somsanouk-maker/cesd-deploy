@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Laboratory extends Model
 {
@@ -38,6 +39,11 @@ class Laboratory extends Model
     public function serviceRequests(): HasMany
     {
         return $this->hasMany(ServiceRequest::class);
+    }
+
+    public function bookings(): MorphMany
+    {
+        return $this->morphMany(Booking::class, 'bookable');
     }
 
     public function localizedName(): string

@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { api, ApiError } from "@/lib/api";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, Badge } from "@/components/ui/card";
+import { BookingForm } from "@/components/forms/booking-form";
 
 export default async function EquipmentDetailPage({
   params,
@@ -133,6 +134,10 @@ export default async function EquipmentDetailPage({
               {t("downloadDatasheet")}
             </a>
           )}
+        </div>
+
+        <div className="mt-8">
+          <BookingForm bookableType="equipment" bookableId={equipment.id} />
         </div>
       </div>
     </div>

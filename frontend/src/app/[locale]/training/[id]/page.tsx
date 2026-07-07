@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { api, ApiError } from "@/lib/api";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card } from "@/components/ui/card";
+import { TrainingRegistrationForm } from "@/components/forms/training-registration-form";
 
 function formatDate(value: string | null, locale: string) {
   if (!value) return "—";
@@ -82,12 +83,7 @@ export default async function TrainingDetailPage({
         </Card>
 
         <div className="mt-8">
-          <Link
-            href={{ pathname: "/request-service", query: { course: course.id } }}
-            className="inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-slate-900 hover:scale-105 transition-transform"
-          >
-            {t("register")}
-          </Link>
+          <TrainingRegistrationForm courseId={course.id} />
         </div>
       </div>
     </div>

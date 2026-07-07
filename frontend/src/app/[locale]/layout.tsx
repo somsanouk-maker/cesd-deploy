@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { AuthProvider } from "@/lib/auth-context";
 import "../globals.css";
 
 const notoSans = Noto_Sans({
@@ -59,9 +60,11 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col font-sans">
         <NextIntlClientProvider locale={locale}>
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
+          <AuthProvider>
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

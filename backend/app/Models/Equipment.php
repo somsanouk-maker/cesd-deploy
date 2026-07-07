@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Equipment extends Model
 {
@@ -62,6 +63,11 @@ class Equipment extends Model
     public function responsibleUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'responsible_user_id');
+    }
+
+    public function bookings(): MorphMany
+    {
+        return $this->morphMany(Booking::class, 'bookable');
     }
 
     public function localizedName(): string

@@ -14,7 +14,8 @@ export function ContactForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("submitting");
-    const form = new FormData(e.currentTarget);
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
 
     try {
       await api.submitContact(locale, {
@@ -25,7 +26,7 @@ export function ContactForm() {
         message: String(form.get("message")),
       });
       setStatus("success");
-      e.currentTarget.reset();
+      formEl.reset();
     } catch {
       setStatus("error");
     }

@@ -5,11 +5,13 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LocaleSwitcher } from "./locale-switcher";
 import { NuolLogo } from "./partner-logo";
+import { useAuth } from "@/lib/auth-context";
 
 export function SiteHeader() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const links = [
     { href: "/", label: t("home") },
@@ -19,6 +21,7 @@ export function SiteHeader() {
     { href: "/services", label: t("services") },
     { href: "/training", label: t("training") },
     { href: "/news", label: t("news") },
+    { href: "/partnership", label: t("partnership") },
     { href: "/contact", label: t("contact") },
   ];
 
@@ -54,6 +57,30 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <LocaleSwitcher />
+          {user ? (
+            <>
+              <Link
+                href="/portal"
+                className="text-sm font-medium text-slate-600 hover:text-brand-dark"
+              >
+                {t("portal")}
+              </Link>
+              <button
+                type="button"
+                onClick={logout}
+                className="text-sm font-medium text-slate-600 hover:text-brand-dark"
+              >
+                {t("logout")}
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="text-sm font-medium text-slate-600 hover:text-brand-dark"
+            >
+              {t("login")}
+            </Link>
+          )}
           <Link
             href="/request-service"
             className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-slate-900 transition-transform hover:scale-105"
@@ -91,6 +118,35 @@ export function SiteHeader() {
               {link.label}
             </Link>
           ))}
+          {user ? (
+            <>
+              <Link
+                href="/portal"
+                onClick={() => setOpen(false)}
+                className="rounded px-2 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+              >
+                {t("portal")}
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  logout();
+                  setOpen(false);
+                }}
+                className="rounded px-2 py-2 text-left text-sm font-medium text-slate-700 hover:bg-slate-100"
+              >
+                {t("logout")}
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              onClick={() => setOpen(false)}
+              className="rounded px-2 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+            >
+              {t("login")}
+            </Link>
+          )}
           <Link
             href="/request-service"
             onClick={() => setOpen(false)}

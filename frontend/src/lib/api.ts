@@ -37,6 +37,41 @@ async function apiFetch<T>(
   return res.json();
 }
 
+/**
+ * For authenticated calls made from client components (customer portal).
+ * Always runs client-side with a Bearer token, so no Next.js data-cache
+ * options apply here — every call should reflect the latest server state.
+ */
+async function authFetch<T>(
+  path: string,
+  locale: string,
+  token: string,
+  init?: RequestInit
+): Promise<T> {
+  const url = new URL(`/api/v1${path}`, API_URL);
+  if (!url.searchParams.has("locale")) {
+    url.searchParams.set("locale", locale);
+  }
+
+  const res = await fetch(url.toString(), {
+    ...init,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      ...init?.headers,
+    },
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    throw new ApiError(body?.message ?? res.statusText, res.status);
+  }
+
+  return res.json();
+}
+
 export interface Paginated<T> {
   data: T[];
   meta?: {
@@ -133,6 +168,63 @@ export interface AboutContent {
   };
 }
 
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
+}
+
+export interface AuthResponse {
+  user: AuthUser;
+  roles?: string[];
+  token: string;
+}
+
+export interface MyServiceRequest {
+  id: number;
+  request_no: string;
+  title: string;
+  description: string;
+  sample_information: string | null;
+  required_date: string | null;
+  status: string;
+  quotation_status: "not_quoted" | "quoted" | "accepted" | "declined";
+  quoted_amount: string | null;
+  quotation_notes: string | null;
+  quoted_at: string | null;
+  staff_notes: string | null;
+  service?: { id: number; name: string };
+  laboratory?: { id: number; name: string } | null;
+  created_at: string;
+}
+
+export interface Booking {
+  id: number;
+  booking_no: string;
+  bookable_type: "equipment" | "laboratory";
+  bookable_name: string;
+  purpose: string;
+  start_at: string;
+  end_at: string;
+  status: "pending_advisor" | "pending_staff" | "approved" | "rejected" | "cancelled";
+  requires_advisor_approval: boolean;
+  advisor_note: string | null;
+  staff_note: string | null;
+  created_at: string;
+}
+
+export interface MyTrainingRegistration {
+  id: number;
+  status: "registered" | "waitlisted" | "attended" | "no_show" | "cancelled";
+  registered_at: string;
+  training_course?: {
+    id: number;
+    title: string;
+    start_date: string | null;
+    end_date: string | null;
+  };
+}
+
 export const api = {
   laboratories: (locale: string) =>
     apiFetch<Paginated<Laboratory>>("/laboratories", locale),
@@ -222,4 +314,130 @@ export const api = {
       next: undefined,
       cache: "no-store",
     }),
+
+  submitPartnershipInquiry: (
+    locale: string,
+    payload: {
+      organization_name: string;
+      contact_name: string;
+      contact_email: string;
+      contact_phone?: string;
+      inquiry_type?: string;
+      message: string;
+    }
+  ) =>
+    apiFetch<{ data: { id: number } }>("/partnership-inquiries", locale, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      next: undefined,
+      cache: "no-store",
+    }),
+
+  registerForTraining: (
+    locale: string,
+    courseId: number | string,
+    payload: { name: string; email: string; phone?: string; organization?: string },
+    token?: string | null
+  ) =>
+    apiFetch<{ data: MyTrainingRegistration }>(
+      `/training-courses/${courseId}/register`,
+      locale,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        next: undefined,
+        cache: "no-store",
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      }
+    ),
+
+  bookableAvailability: (
+    locale: string,
+    bookableType: "equipment" | "laboratory",
+    bookableId: number
+  ) =>
+    apiFetch<{ data: { start_at: string; end_at: string }[] }>(
+      `/bookable-availability?bookable_type=${bookableType}&bookable_id=${bookableId}`,
+      locale,
+      { next: undefined, cache: "no-store" }
+    ),
+
+  // Auth
+  register: (
+    locale: string,
+    payload: { name: string; email: string; password: string; phone?: string; organization?: string }
+  ) =>
+    apiFetch<{ data: AuthResponse }>("/auth/register", locale, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      next: undefined,
+      cache: "no-store",
+    }),
+
+  login: (locale: string, payload: { email: string; password: string }) =>
+    apiFetch<{ data: AuthResponse }>("/auth/login", locale, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      next: undefined,
+      cache: "no-store",
+    }),
+
+  logout: (locale: string, token: string) =>
+    authFetch<{ data: { message: string } }>("/auth/logout", locale, token, {
+      method: "POST",
+    }),
+
+  me: (locale: string, token: string) =>
+    authFetch<{ data: AuthUser & { roles: string[] } }>("/auth/me", locale, token),
+
+  // Customer portal (all require a Bearer token)
+  myServiceRequests: (locale: string, token: string) =>
+    authFetch<{ data: MyServiceRequest[] }>("/my/service-requests", locale, token),
+
+  myServiceRequest: (locale: string, token: string, id: number | string) =>
+    authFetch<{ data: MyServiceRequest }>(`/my/service-requests/${id}`, locale, token),
+
+  respondToQuotation: (
+    locale: string,
+    token: string,
+    id: number | string,
+    response: "accepted" | "declined"
+  ) =>
+    authFetch<{ data: MyServiceRequest }>(
+      `/my/service-requests/${id}/quotation-response`,
+      locale,
+      token,
+      { method: "POST", body: JSON.stringify({ response }) }
+    ),
+
+  myBookings: (locale: string, token: string) =>
+    authFetch<{ data: Booking[] }>("/my/bookings", locale, token),
+
+  createBooking: (
+    locale: string,
+    token: string,
+    payload: {
+      bookable_type: "equipment" | "laboratory";
+      bookable_id: number;
+      purpose: string;
+      start_at: string;
+      end_at: string;
+    }
+  ) =>
+    authFetch<{ data: Booking }>("/bookings", locale, token, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
+  cancelBooking: (locale: string, token: string, id: number | string) =>
+    authFetch<{ data: Booking }>(`/bookings/${id}/cancel`, locale, token, {
+      method: "POST",
+    }),
+
+  myTrainingRegistrations: (locale: string, token: string) =>
+    authFetch<{ data: MyTrainingRegistration[] }>(
+      "/my/training-registrations",
+      locale,
+      token
+    ),
 };

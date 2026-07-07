@@ -8,7 +8,11 @@
     "training": "Training",
     "news": "News & Events",
     "contact": "Contact",
-    "requestService": "Request Service"
+    "partnership": "Partnership",
+    "requestService": "Request Service",
+    "login": "Log In",
+    "portal": "My Account",
+    "logout": "Log Out"
   },
   "Footer": {
     "tagline": "Center of Engineering for Sustainable Development",
@@ -86,7 +90,14 @@
     "fee": "Fee",
     "free": "Free",
     "register": "Register",
-    "backToList": "Back to Training"
+    "backToList": "Back to Training",
+    "regName": "Full Name",
+    "regEmail": "Email",
+    "regPhone": "Phone (optional)",
+    "regOrganization": "Organization (optional)",
+    "registeredMessage": "You're registered for this course. A confirmation has been sent to your email.",
+    "waitlistedMessage": "This course is currently full. You've been added to the waitlist and will be notified if a spot opens up.",
+    "regErrorMessage": "Could not complete your registration. Please check the form and try again."
   },
   "News": {
     "title": "News & Events",
@@ -135,5 +146,93 @@
     "loading": "Loading...",
     "readMore": "Read More",
     "required": "Required"
+  },
+  "Auth": {
+    "loginTitle": "Log In",
+    "loginSubtitle": "Access your CESD customer portal.",
+    "registerTitle": "Create an Account",
+    "registerSubtitle": "Register to submit requests, book equipment, and track your services.",
+    "name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "phone": "Phone (optional)",
+    "organization": "Organization (optional)",
+    "submitLogin": "Log In",
+    "submitRegister": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createAccount": "Create one",
+    "signIn": "Log in",
+    "errorMessage": "Could not sign you in. Please check your details and try again."
+  },
+  "Portal": {
+    "dashboardTitle": "My Account",
+    "nav": {
+      "dashboard": "Dashboard",
+      "requests": "Service Requests",
+      "bookings": "Bookings",
+      "trainings": "Trainings"
+    },
+    "welcome": "Welcome, {name}.",
+    "myRequests": "My Service Requests",
+    "myBookings": "My Bookings",
+    "myTrainings": "My Trainings",
+    "viewAll": "View all",
+    "requestNo": "Request No.",
+    "status": "Status",
+    "quotation": "Quotation",
+    "quotedAmount": "Quoted Amount",
+    "quotationNotes": "Notes",
+    "accept": "Accept",
+    "decline": "Decline",
+    "quotationAccepted": "Quotation accepted.",
+    "quotationDeclined": "Quotation declined.",
+    "noRequests": "You haven't submitted any service requests yet.",
+    "noBookings": "You don't have any bookings yet.",
+    "noTrainings": "You haven't registered for any training courses yet.",
+    "bookingNo": "Booking No.",
+    "item": "Item",
+    "purpose": "Purpose",
+    "startAt": "Start",
+    "endAt": "End",
+    "cancel": "Cancel Booking",
+    "cancelConfirm": "Cancel this booking?",
+    "course": "Course",
+    "registeredAt": "Registered On",
+    "backToDashboard": "Back to Dashboard"
+  },
+  "Booking": {
+    "title": "Book This {type}",
+    "equipment": "Equipment",
+    "laboratory": "Laboratory",
+    "purpose": "Purpose",
+    "startAt": "Start Date & Time",
+    "endAt": "End Date & Time",
+    "submit": "Submit Booking Request",
+    "successMessage": "Your booking request has been submitted ({bookingNo}). You'll be notified once it's reviewed.",
+    "errorMessage": "Could not submit your booking. Please check the details and try again.",
+    "loginRequired": "Please log in to book equipment or laboratories.",
+    "logIn": "Log In",
+    "advisorNote": "As a student, your booking will need advisor approval before final confirmation by staff."
+  },
+  "Partnership": {
+    "title": "Partnership & Collaboration",
+    "subtitle": "Interested in joint research, industry collaboration, or a partnership with CESD? Tell us about it.",
+    "organizationName": "Organization Name",
+    "contactName": "Contact Name",
+    "contactEmail": "Contact Email",
+    "contactPhone": "Contact Phone (optional)",
+    "inquiryType": "Inquiry Type",
+    "inquiryTypes": {
+      "joint_rd": "Joint Research & Development",
+      "industry_partnership": "Industry Partnership",
+      "mou": "MOU / Institutional Agreement",
+      "other": "Other"
+    },
+    "message": "Message",
+    "submit": "Submit Inquiry",
+    "successTitle": "Inquiry Submitted",
+    "successMessage": "Thank you for your interest. Our team will review your inquiry and get back to you soon.",
+    "errorMessage": "Could not submit your inquiry. Please check the form and try again."
   }
 }

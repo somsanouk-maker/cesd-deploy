@@ -3,13 +3,52 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\ServiceRequestResource;
 use App\Models\ServiceRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class ServiceRequestController extends Controller
 {
+    public function mine(Request $request): AnonymousResourceCollection
+    {
+        return ServiceRequestResource::collection(
+            $request->user()->serviceRequests()->with(['service', 'laboratory'])->latest()->get()
+        );
+    }
+
+    public function show(Request $request, ServiceRequest $serviceRequest): ServiceRequestResource
+    {
+        if ($serviceRequest->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
+        return new ServiceRequestResource($serviceRequest->load(['service', 'laboratory']));
+    }
+
+    public function respondToQuotation(Request $request, ServiceRequest $serviceRequest): JsonResponse
+    {
+        if ($serviceRequest->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
+        if ($serviceRequest->quotation_status !== 'quoted') {
+            throw ValidationException::withMessages(['quotation_status' => ['There is no pending quotation to respond to.']]);
+        }
+
+        $data = $request->validate([
+            'response' => ['required', Rule::in(['accepted', 'declined'])],
+        ]);
+
+        $serviceRequest->respondToQuotation($data['response'] === 'accepted', $request->user());
+
+        return response()->json(['data' => new ServiceRequestResource($serviceRequest->fresh())]);
+    }
+
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TrainingCourse extends Model
 {
@@ -26,6 +27,21 @@ class TrainingCourse extends Model
             'end_date' => 'date',
             'is_active' => 'boolean',
         ];
+    }
+
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(TrainingRegistration::class);
+    }
+
+    public function activeRegistrationsCount(): int
+    {
+        return $this->registrations()->where('status', 'registered')->count();
+    }
+
+    public function hasCapacity(): bool
+    {
+        return $this->capacity === null || $this->activeRegistrationsCount() < $this->capacity;
     }
 
     public function localizedTitle(): string
