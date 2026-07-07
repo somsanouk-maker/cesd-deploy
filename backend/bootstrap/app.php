@@ -17,6 +17,12 @@ return Application::configure(basePath: dirname(__DIR__))
         // with Sanctum personal-access (bearer) tokens, not SPA session cookies, so
         // the API stays fully stateless — no CSRF dance for public POST endpoints
         // like /contact and /service-requests.
+
+        // Render (and most PaaS hosts) terminate TLS at their edge and forward
+        // plain HTTP to the container. Without trusting that proxy, Laravel
+        // generates asset()/url() links as http://, which browsers silently
+        // block as mixed content on an https:// page — breaking all CSS/JS.
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
