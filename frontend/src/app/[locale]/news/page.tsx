@@ -4,6 +4,7 @@ import { api } from "@/lib/api";
 import { safe } from "@/lib/safe";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card } from "@/components/ui/card";
+import { SafeImage } from "@/components/news/safe-image";
 
 export default async function NewsPage({
   params,
@@ -24,8 +25,7 @@ export default async function NewsPage({
             <Link key={item.id} href={`/news/${item.slug}`}>
               <Card className="h-full !p-0 overflow-hidden">
                 {item.cover_image_url && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <SafeImage
                     src={item.cover_image_url}
                     alt={item.title}
                     className="h-40 w-full object-cover"

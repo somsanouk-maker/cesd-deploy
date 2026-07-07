@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { api, ApiError } from "@/lib/api";
 import { PageHeader } from "@/components/ui/page-header";
+import { ArticleBody } from "@/components/news/article-body";
+import { SafeImage } from "@/components/news/safe-image";
 
 export default async function NewsDetailPage({
   params,
@@ -31,8 +33,7 @@ export default async function NewsDetailPage({
         </Link>
 
         {item.cover_image_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <SafeImage
             src={item.cover_image_url}
             alt={item.title}
             className="mt-6 h-72 w-full rounded-xl object-cover sm:h-96"
@@ -49,9 +50,9 @@ export default async function NewsDetailPage({
         )}
 
         {item.body && (
-          <div
+          <ArticleBody
+            html={item.body}
             className="prose prose-slate mt-6 max-w-none leading-relaxed text-slate-700"
-            dangerouslySetInnerHTML={{ __html: item.body }}
           />
         )}
       </div>
