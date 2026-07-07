@@ -1,8 +1,11 @@
-FROM php:8.3-cli
+FROM php:8.4-cli
 
+# composer.lock was generated locally against PHP 8.5, which locked several
+# Symfony 8.x packages requiring PHP >=8.4.1 and filament/support requiring
+# ext-intl — both must be matched here or `composer install` fails.
 RUN apt-get update && apt-get install -y \
-    git unzip libpq-dev libzip-dev libpng-dev \
-    && docker-php-ext-install pdo pdo_pgsql pgsql zip gd \
+    git unzip libpq-dev libzip-dev libpng-dev libicu-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql zip gd intl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
