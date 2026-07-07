@@ -5,6 +5,7 @@ import { safe } from "@/lib/safe";
 import { Card, Badge } from "@/components/ui/card";
 import { LabIcon, ServiceIcon } from "@/components/icons";
 import { HeroCarousel } from "@/components/home/hero-carousel";
+import { SafeImage } from "@/components/news/safe-image";
 
 export default async function HomePage({
   params,
@@ -62,13 +63,22 @@ export default async function HomePage({
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {news.data.slice(0, 3).map((item) => (
             <Link key={item.id} href={`/news/${item.slug}`}>
-              <Card className="h-full">
-                <h3 className="font-semibold text-slate-800">{item.title}</h3>
-                {item.excerpt && (
-                  <p className="mt-2 line-clamp-3 text-sm text-slate-600">
-                    {item.excerpt}
-                  </p>
+              <Card className="h-full !p-0 overflow-hidden">
+                {item.cover_image_url && (
+                  <SafeImage
+                    src={item.cover_image_url}
+                    alt={item.title}
+                    className="h-40 w-full object-cover"
+                  />
                 )}
+                <div className="p-5">
+                  <h3 className="font-semibold text-slate-800">{item.title}</h3>
+                  {item.excerpt && (
+                    <p className="mt-2 line-clamp-3 text-sm text-slate-600">
+                      {item.excerpt}
+                    </p>
+                  )}
+                </div>
               </Card>
             </Link>
           ))}
