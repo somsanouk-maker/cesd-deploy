@@ -19,7 +19,6 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progre
 # gets its schema without a manual step. storage:link is guarded because it
 # errors if the symlink already exists (e.g. on redeploy of the same volume).
 CMD php artisan migrate --force \
-    && php artisan db:seed --force \
     && (test -L public/storage || php artisan storage:link) \
     && php artisan filament:assets \
     && php artisan config:cache \
