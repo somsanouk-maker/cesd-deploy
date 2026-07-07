@@ -22,22 +22,32 @@ export default async function NewsPage({
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {news.data.map((item) => (
             <Link key={item.id} href={`/news/${item.slug}`}>
-              <Card className="h-full">
-                {item.published_at && (
-                  <p className="text-xs text-slate-500">
-                    {new Date(item.published_at).toLocaleDateString(
-                      locale === "lo" ? "lo-LA" : "en-US"
-                    )}
-                  </p>
+              <Card className="h-full !p-0 overflow-hidden">
+                {item.cover_image_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.cover_image_url}
+                    alt={item.title}
+                    className="h-40 w-full object-cover"
+                  />
                 )}
-                <h3 className="mt-2 text-lg font-semibold text-slate-800">
-                  {item.title}
-                </h3>
-                {item.excerpt && (
-                  <p className="mt-2 line-clamp-3 text-sm text-slate-600">
-                    {item.excerpt}
-                  </p>
-                )}
+                <div className="p-5">
+                  {item.published_at && (
+                    <p className="text-xs text-slate-500">
+                      {new Date(item.published_at).toLocaleDateString(
+                        locale === "lo" ? "lo-LA" : "en-US"
+                      )}
+                    </p>
+                  )}
+                  <h3 className="mt-2 text-lg font-semibold text-slate-800">
+                    {item.title}
+                  </h3>
+                  {item.excerpt && (
+                    <p className="mt-2 line-clamp-3 text-sm text-slate-600">
+                      {item.excerpt}
+                    </p>
+                  )}
+                </div>
               </Card>
             </Link>
           ))}

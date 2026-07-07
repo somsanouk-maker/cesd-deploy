@@ -30,8 +30,17 @@ export default async function NewsDetailPage({
           ← {t("backToList")}
         </Link>
 
+        {item.cover_image_url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={item.cover_image_url}
+            alt={item.title}
+            className="mt-6 h-72 w-full rounded-xl object-cover sm:h-96"
+          />
+        )}
+
         {item.published_at && (
-          <p className="mt-4 text-sm text-slate-500">
+          <p className="mt-6 text-sm text-slate-500">
             {t("publishedOn")}{" "}
             {new Date(item.published_at).toLocaleDateString(
               locale === "lo" ? "lo-LA" : "en-US"
@@ -40,9 +49,10 @@ export default async function NewsDetailPage({
         )}
 
         {item.body && (
-          <div className="mt-6 whitespace-pre-line leading-relaxed text-slate-700">
-            {item.body}
-          </div>
+          <div
+            className="prose prose-slate mt-6 max-w-none leading-relaxed text-slate-700"
+            dangerouslySetInnerHTML={{ __html: item.body }}
+          />
         )}
       </div>
     </div>

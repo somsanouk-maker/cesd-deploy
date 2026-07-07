@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Claude Code session state
+.claude/scheduled_tasks.lock
+
 # Raw source photography (700MB+) — not used by the running app; the
 # optimized copies actually served live in backend/storage and frontend/public.
 /assets/
