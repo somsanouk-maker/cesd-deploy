@@ -17,7 +17,7 @@
   --color-brand-dark: var(--brand-dark);
   --color-brand-light: var(--brand-light);
   --color-accent: var(--accent);
-  --font-sans: var(--font-noto), var(--font-geist-sans), sans-serif;
+  --font-sans: var(--font-noto), var(--font-noto-lao), sans-serif;
 }
 
 body {
