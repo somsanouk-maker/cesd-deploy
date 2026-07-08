@@ -26,12 +26,12 @@ export default async function HomePage({
     <div>
       <section className="relative h-[420px] overflow-hidden text-white sm:h-[520px]">
         <HeroCarousel alt="CESD building, Faculty of Engineering, National University of Laos" />
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/90 to-brand/80" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/60 to-brand/40" />
         <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-center px-4">
-          <h1 className="max-w-3xl text-3xl font-bold sm:text-5xl">
+          <h1 className="max-w-3xl text-3xl font-bold [text-shadow:0_2px_10px_rgba(0,0,0,0.6)] sm:text-5xl">
             {t("heroTitle")}
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-blue-100">
+          <p className="mt-5 max-w-2xl text-lg text-blue-100 [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
             {t("heroSubtitle")}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
