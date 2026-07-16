@@ -8,6 +8,9 @@
 # optimized copies actually served live in backend/storage and frontend/public.
 /assets/
 
+# Docker Compose env file (DB password, etc.) — see .env.example
+/.env
+
 # Backend (Laravel)
 backend/vendor/
 backend/node_modules/
